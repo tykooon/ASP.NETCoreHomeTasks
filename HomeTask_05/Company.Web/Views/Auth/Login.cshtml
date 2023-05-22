@@ -1,0 +1,47 @@
+﻿@{
+    ViewBag.Title = "Company Login";
+}
+
+@model Company.Web.Models.LoginViewModel;
+
+<div class="container">
+    <div class="card mainboard" style="--mw:600px">
+        <div class="card-body py-5 px-md-5">
+            <h2 class="text-center">Welcome!</h2>
+            <form asp-action="Login" method="post">
+                <div class="text-danger" asp-validation-summary="ModelOnly">
+                </div>
+
+                <div class="form-outline mb-4">
+                    <label asp-for="Email" class="sr-only"></label>
+                    <input type="text" asp-for="Email" class="form-control auth-login">
+                    <span asp-validation-for="Email" class="text-danger m-1"></span>
+                </div>
+
+                <div class="form-outline mb-4">
+                    <label asp-for="Password" class="sr-only"> </label>
+                    <div class="input-group mb-3">
+                        <input type="password" asp-for="Password" class="form-control auth-pass">
+                            <button type="button" class="btn btn-secondary" onclick="togglePass('Password')">
+                                <i id="Password-eye-show" class="bi bi-eye"></i>
+                                <i id="Password-eye-hide" hidden class="bi bi-eye-slash"></i>
+                            </button>
+                    </div>
+                    <span asp-validation-for="Password" class="text-danger m-1"></span>
+                </div>
+
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary mb-4">Login</button>
+                </div>
+
+                <input type="hidden" asp-for="ReturnUrl" />
+            </form>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <partial name="_ValidationScripts"></partial>
+    <script src="~/js/pass-togglers.js"></script>
+}

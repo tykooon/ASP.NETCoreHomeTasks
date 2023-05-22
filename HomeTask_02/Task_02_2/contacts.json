@@ -1,0 +1,68 @@
+[
+  {
+    "Id": 1,
+    "FirstName": "Alex",
+    "LastName": "Tykoun",
+    "BirthDate": "1977-10-13",
+    "Phones": [
+      "+375296665544"
+    ]
+  },
+  {
+    "Id": 46,
+    "firstname": "Joseph 'Joe'",
+    "lastname": "Biden",
+    "birthdate": "1942-11-20",
+    "Phones": [
+      "+199999999999999",
+      "00(101)19421120"
+    ]
+  },
+  {
+    "Id": 45,
+    "firstname": "Donald J.",
+    "lastname": "Trump",
+    "birthdate": "1946-06-14",
+    "Phones": [
+      "+123",
+      "+100"
+    ]
+  },
+  {
+    "Id": 44,
+    "firstname": "Barack",
+    "lastname": "Obama",
+    "birthdate": "1961-08-04",
+    "Phones": [
+      "+1666666666666"
+    ]
+  },
+  {
+    "Id": 43,
+    "firstname": "George W.",
+    "lastname": "Bush",
+    "birthdate": "1946-07-06",
+    "Phones": [
+      "+1011001101101"
+    ]
+  },
+  {
+    "Id": 42,
+    "firstname": "Bill",
+    "lastname": "Clinton",
+    "birthdate": "1946-08-19",
+    "Phones": [
+      "+100000000069",
+      "+7(946)23423423"
+    ]
+  },
+  {
+    "Id": 39,
+    "firstname": "Jimmy",
+    "lastname": "Carter",
+    "birthdate": "1924-10-01",
+    "Phones": [
+      "+1(911)"
+    ]
+  }
+]

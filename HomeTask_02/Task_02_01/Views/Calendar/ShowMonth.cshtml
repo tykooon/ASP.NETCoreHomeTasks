@@ -1,0 +1,39 @@
+﻿@using Task_02_01.Model;
+@{
+    ViewBag.Title = Model.Title;
+}
+@model MonthViewModel;
+
+<div class="mx-auto">
+    <table class="table table-bordered">
+        <thead>
+            <tr class="">
+                <th><a href="/@Model.PrevMonth().Item2/@Model.PrevMonth().Item1">&larr;</a></th>
+                <th colspan="5">@Model.Title</th>
+                <th><a href="/@Model.NextMonth().Item2/@Model.NextMonth().Item1">&rarr;</a></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class ="fw-bolder">
+                <td>Su</td>
+                <td>Mo</td>
+                <td>Tu</td>
+                <td>We</td>
+                <td>Th</td>
+                <td>Fr</td>
+                <td>Sa</td>
+            </tr>
+            @for(var i = 0; i < Model.Weeks.Count; i++)
+            {
+                <tr>
+                    @for (var j = 0; j < 7; j++)
+                    {
+                        <td class="m-0 p-0 fw-semibold">@(Model.Weeks[i][j] == 0 ? "" : Model.Weeks[i][j])</td>
+                    }
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+

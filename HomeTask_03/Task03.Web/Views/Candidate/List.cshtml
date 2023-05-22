@@ -1,0 +1,45 @@
+﻿@using Company.Core.Entities;
+@{
+    ViewBag.Title = "List of Candidates";
+}
+
+@model IEnumerable<Candidate>;
+
+<div class="mainboard" style="--mw:960px;">
+    <div class="d-flex gap-2 justify-content-between m-2 p-2">
+        <h2 class="text-primary">List of Candidates</h2>
+        <a class="btn btn-primary fw-semibold my-1" href="/candidate/add">+ Add New</a>
+    </div>
+    <div class="mb-4">
+        <table class="table table-bordered">
+            <tr>
+                <th class="text-center">#</th>
+                <th>Name of Candidate</th>
+                <th>Apply date</th>
+                <th>Target Position</th>
+                <th class="text-center">Actions</th>
+            </tr>
+            @{
+                var i = 1;
+            }
+            @foreach (var cand in Model)
+            {
+                <tr>
+                    <td class="text-center row-name">@(i++)</td>
+                    <td>@cand.FullName</td>
+                    <td>@cand.StartDate.ToString("yyyy-MM-dd")</td>
+                    <td>@(cand.TargetPosition == null ? "No position" : cand.TargetPosition.Name)</td>
+                    <td class="text-center align-middle" style="padding:2px;">
+                        <a href="/candidate/@cand.Id" class="btn btn-success py-1"><i class="bi bi-info-lg"></i></a>
+                        <a href="/candidate/edit/@cand.Id" class="btn btn-warning py-1"><i class="bi bi-pencil"></i></a>
+                        <a class="btn btn-danger py-1" onclick="confirmDelete('@cand.Id','@cand.FullName')"><i class="bi bi-trash"></i></a>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="/js/site.js"></script>
+}

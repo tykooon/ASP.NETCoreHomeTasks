@@ -1,0 +1,49 @@
+﻿connectionString: DataSource=company.db
+createTablesSql: drop table if exists departments;
+  drop table if exists roles;
+  drop table if exists users;
+  create table if not exists departments (
+  Id integer primary key autoincrement,
+  Name text,
+  check(length(Name) <= 128)
+  );
+  create table if not exists roles (
+  Id integer primary key autoincrement,
+  Name text,
+  check(length(Name) <= 32)
+  );
+  create table if not exists users (
+  Id char(36) primary key,
+  FullName text not null,
+  Email text not null,
+  PasswordHash text not null,
+  BirthDate date not null,
+  DepartmentId integer not null,
+  RoleId integer,
+  check(length(FullName) <= 128),
+  check(length(Email) <= 128),
+  check(length(PasswordHash) <= 128),
+  foreign key(DepartmentId) references departments(Id),
+  foreign key(RoleId) references roles(Id)
+  );
+  create trigger AutoGenerateGUID
+  after insert on users
+  for each row
+  when (NEW.Id is null)
+  begin
+  update users set
+  Id = (select hex( randomblob(4)) || '-' || hex( randomblob(2))
+  || '-' || '4' || substr( hex( randomblob(2)), 2) || '-'
+  || substr('AB89', 1 + (abs(random()) % 4) , 1)  ||
+  substr(hex(randomblob(2)), 2) || '-' || hex(randomblob(6)) ) where rowid = NEW.rowid;
+  end;
+fillTablesSql: insert into departments (Name) values ('Java');
+  insert into departments (Name) values ('Front End');
+  insert into departments (Name) values ('.NET');
+  insert into departments (Name) values ('Administration');
+  insert into departments (Name) values ('HR');
+  insert into departments (Name) values ('TC');
+  insert into roles (Name) values ('Admin');
+  insert into roles (Name) values ('User');
+  insert into users (FullName, Email, PasswordHash, BirthDate, DepartmentId, RoleId) values ('Alex Tykoun', 'alex@mail.ru', '123123123123123123', '1977-10-13', 6, 1);
+  insert into users (FullName, Email, PasswordHash, BirthDate, DepartmentId, RoleId) values ('Eugen Kalabuhov', 'eugen@mail.ru', 'FEae3752944345', '1972-12-23', 6, 2);

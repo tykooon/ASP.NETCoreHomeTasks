@@ -1,0 +1,70 @@
+﻿@using Company.Core.Entities;
+@model Candidate;
+
+@{
+    ViewBag.Title = "Details for "+Model.FullName;
+}
+
+
+<div class="mainboard" style="--mw:max-content;">
+    <h2>Details for @Model.FullName</h2>
+    <div class="mb-4">
+        <table class="table table-bordered border-dark">
+            <thead>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class ="row-name">Full Name:</td>
+                    <td>@Model.FullName</td>
+                </tr>
+                <tr>
+                    <td class="row-name">Email:</td>
+                    <td>@Model.Email</td>
+                </tr>
+                <tr>
+                    <td class="row-name">Contact Phone:</td>
+                    <td>@Model.Phone</td>
+                </tr>
+                <tr>
+                    <td class="row-name">Apply date:</td>
+                    <td>@(Model.StartDate.ToShortDateString())</td>
+                </tr>
+                <tr>
+                    <td class="row-name">LinkedIn:</td>
+                    <td>@if (Model.LinkedIn == null)
+                        {
+                            <span>N/A</span>
+                        }
+                        else
+                        {
+                            <a href="@Model.LinkedIn">click the link</a>
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row-name">Experience:</td>
+                    <td>@(Model.Experience ==  null ? "---" : Model.Experience)</td>
+                </tr>
+                <tr>
+                    <td class="row-name">Target Position:</td>
+                    <td>@(Model.TargetPosition == null ? "No position" : Model.TargetPosition.Name)</td>
+                </tr>
+                <tr>
+                    <td class="row-name">Skills:</td>
+                    <td>
+                        <ul class="list-group border-0">
+                            @foreach (var skill in Model.Skills)
+                            {
+                                <li class="list-group-item m-0 p-0 border-0">
+                                    <span>@skill.Name</span>
+                                </li>
+                            }
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <a class="btn btn-primary" href="/candidate">Back to List</a>
+</div>
+

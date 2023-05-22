@@ -1,0 +1,20 @@
+﻿@model Company.Web.Models.UserEditModel;
+
+<div class="mb-3">
+    <label asp-for="FullName" class="form-label"></label>
+    <input asp-for="FullName" class="form-control" />
+    <span asp-validation-for="FullName" class="text-danger"></span>
+</div>
+
+<div class="mb-3">
+    <label asp-for="BirthDate" class="form-label"></label>
+    <input asp-for="BirthDate" class="form-control" />
+    <span asp-validation-for="BirthDate" class="text-danger"></span>
+</div>
+
+<div class="mb-3">
+    <label asp-for="DepartmentId" class="form-label"></label>
+    <select asp-for="DepartmentId" asp-items="Model.Departments" class="form-select">
+    </select>
+</div>
+

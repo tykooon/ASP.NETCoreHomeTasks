@@ -1,0 +1,47 @@
+﻿@{
+    ViewBag.Title = "Details";
+}
+@model Contact;
+
+<div class="mainboard" style="--mw:max-content;">
+    <h2>Details for @Model.FirstName @Model.LastName</h2>
+    <div class="mb-4">
+        <table class="table table-bordered border-dark">
+            <thead>
+                <tr class="bg-secondary text-white">
+                    <td class="row-name">#</td>
+                    <td>@Model.Id</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class ="row-name">First Name:</td>
+                    <td>@Model.FirstName</td>
+                </tr>
+                <tr>
+                    <td class="row-name">Last Name:</td>
+                    <td>@Model.LastName</td>
+                </tr>
+                <tr>
+                    <td class="row-name">Date of Birth:</td>
+                    <td>@(Model.BirthDate?.ToShortDateString() ?? "----.--.--")</td>
+                </tr>
+                <tr>
+                    <td class="row-name">Phones:</td>
+                    <td>
+                        <ul class="list-group border-0">
+                            @foreach (var phone in Model.Phones)
+                            {
+                                <li class="list-group-item m-0 p-0 border-0">
+                                    <span>@phone</span>
+                                </li>
+                            }
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <a class="btn btn-primary" href="/contacts">Back to List</a>
+</div>
+

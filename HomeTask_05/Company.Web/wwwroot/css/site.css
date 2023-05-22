@@ -1,0 +1,66 @@
+﻿html {
+    font-size: 14px;
+    position: relative;
+    min-width: 480px;
+}
+
+body {
+    min-height: calc(100vh - 60px);
+    margin-bottom: 60px;
+    background-color: rgb(240, 240, 240);
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.25rem rgb(13 110 253 / 25%);
+}
+
+.form-label {
+    font-weight:700;
+}
+
+.mainboard {
+    margin: 20px auto 20px;
+    background-color: white;
+    padding: 1rem;
+    max-width: var(--mw);
+    border-radius: 4px;
+}
+
+td.row-name {
+    font-weight: 600;
+    text-align:end;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px;
+    background-color:darkgrey;
+    color:white;
+}
+
+.input-group:focus-within {
+    color: #212529;
+    background-color: #fff;
+    border-color: #86b7fe;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgb(13 110 253 / 25%);
+    z-index: 3;
+    border-radius: .25rem;
+}
+
+.input-group .form-control:focus {
+    box-shadow: none !important;
+}

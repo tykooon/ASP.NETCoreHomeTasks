@@ -1,0 +1,63 @@
+﻿@using Company.Core.Entities;
+@using Microsoft.AspNetCore.Authorization;
+@{
+    ViewBag.Title = "List of Candidates";
+    bool isLoggedIn = Context.User.Identity.IsAuthenticated;
+    bool isAdminDepartment = Context.User.HasClaim("Department", "Administration");
+    bool isAdminRole = Context.User.IsInRole("Admin");
+}
+
+@model IEnumerable<User>;
+
+<div class="mainboard" style="--mw:960px;">
+    <div class="d-flex gap-2 justify-content-between m-2 p-2">
+        <h2 class="text-primary">List of Employees</h2>
+        @if(isAdminRole)
+        {
+            <a class="btn btn-primary fw-semibold my-1" href="/admin/user/add">+ Add New</a>
+        }
+
+    </div>
+    <div class="mb-4">
+        <table class="table table-bordered">
+            <tr>
+                <th class="text-center">#</th>
+                <th>Name of Employee</th>
+                <th>Department</th>
+                @if(isLoggedIn)
+                {
+                    <th class="text-center">Actions</th>
+                }
+            </tr>
+            @{
+                var i = 1;
+            }
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td class="text-center row-name">@(i++)</td>
+                    <td>@user.FullName</td>
+                    <td>@user.Department.Name</td>
+                    @if (isLoggedIn)
+                    {
+                        <td class="text-center align-middle" style="padding:2px;">
+                            <a href="/user/@user.Id" class="btn btn-success py-1"><i class="bi bi-info-lg"></i></a>
+                        @if(isAdminDepartment || isAdminRole)
+                        {
+                            <a href="@(isAdminRole ? "/admin" : "")/user/edit/@user.Id" class="btn btn-warning py-1"><i class="bi bi-pencil"></i></a>
+                        }
+                        @if(isAdminRole)
+                        {
+                            <a class="btn btn-danger py-1" onclick="confirmDelete('@user.Id','@user.FullName')"><i class="bi bi-trash"></i></a>
+                        }                        
+                        </td>
+                    }
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="/js/site.js"></script>
+}

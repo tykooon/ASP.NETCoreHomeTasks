@@ -1,0 +1,55 @@
+﻿@model Company.Web.Models.UserEditModel;
+@{
+    ViewBag.Title = "Edit";
+}
+
+<div class="mainboard" style="--mw:960px;">
+
+    <div class="d-flex gap-2 justify-content-between m-2 p-2">
+        <h2 class="text-primary">Add new employee</h2>
+    </div>
+
+    <div class="mb-4">
+        <form method="post">
+
+            <partial name="_UserEditFormPartial" />
+
+            <div class="mb-3">
+                <label asp-for="Email" class="form-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="NewPassword" class="form-label"></label>
+                <div class="input-group mb-3">
+                    <input type="password" asp-for="NewPassword" class="form-control auth-pass">
+                    <button type="button" class="btn btn-secondary" onclick="togglePass('Password')">
+                        <i id="Password-eye-show" class="bi bi-eye"></i>
+                        <i id="Password-eye-hide" hidden class="bi bi-eye-slash"></i>
+                    </button>
+                </div>
+
+                <span asp-validation-for="NewPassword" class="text-danger"></span>
+            </div>
+
+
+            <div class="mb-3">
+                <label asp-for="RoleId" class="form-label"></label>
+                <select asp-for="RoleId" asp-items="Model.Roles" class="form-select">
+                    <option value="">No Role</option>
+                </select>
+            </div>
+
+
+            <div class="mb-3">
+                <button class="btn btn-primary" type="submit">Save</button>
+                <a asp-action="List" class="btn btn-secondary">Return to list</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScripts"/>
+}

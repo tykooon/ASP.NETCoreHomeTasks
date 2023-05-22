@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "List of Contacts";
+}
+
+@model IEnumerable<Contact>;
+
+<div class="mainboard" style="--mw:800px;">
+    <h2 class="text-primary">Contacts</h2>
+    <div class="mb-4">
+        <table class="table table-bordered">
+            <tr>
+                <th class="text-center">#</th>
+                <th>Name of Contact</th>
+                <th class="text-center">Actions</th>
+            </tr>
+            @{var i = 1;}
+            @foreach (var cont in Model)
+            {
+                <tr>
+                    <td class="text-center">@(i++)</td>
+                    <td>@cont.FirstName @cont.LastName</td>
+                    <td class="text-center align-middle" style="padding:2px;">
+                        <a href="/contacts/@cont.Id" class="btn btn-primary py-1">Details</a>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

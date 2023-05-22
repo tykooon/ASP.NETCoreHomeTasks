@@ -1,0 +1,14 @@
+﻿.calendar {
+    max-width:420px;
+    background-color: white;
+}
+
+td, th {
+    max-width: 1rem;
+    text-align: center;
+}
+
+table a {
+    text-decoration:none;
+    color: white;
+}

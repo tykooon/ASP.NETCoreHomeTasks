@@ -1,0 +1,69 @@
+﻿@page "{id:guid}"
+@model Company.Web.Pages.Candidate.DetailsModel
+@{
+    ViewBag.Title = "Details for " + Model.Candidate.FullName;
+}
+
+
+<div class="mainboard" style="--mw:max-content;">
+    <h2>Details for @Model.Candidate.FullName</h2>
+    <div class="mb-4">
+        <table class="table table-bordered border-dark">
+            <thead>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="row-name">Full Name:</td>
+                    <td>@Model.Candidate.FullName</td>
+                </tr>
+                <tr>
+                    <td class="row-name">Email:</td>
+                    <td>@Model.Candidate.Email</td>
+                </tr>
+                <tr>
+                    <td class="row-name">Contact Phone:</td>
+                    <td>@Model.Candidate.Phone</td>
+                </tr>
+                <tr>
+                    <td class="row-name">Apply date:</td>
+                    <td>@(Model.Candidate.StartDate.ToShortDateString())</td>
+                </tr>
+                <tr>
+                    <td class="row-name">LinkedIn:</td>
+                    <td>
+                        @if (Model.Candidate.LinkedIn == null)
+                        {
+                            <span>N/A</span>
+                        }
+                        else
+                        {
+                            <a href="@Model.Candidate.LinkedIn">click the link</a>
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row-name">Experience:</td>
+                    <td>@(Model.Candidate.Experience == null ? "---" : Model.Candidate.Experience)</td>
+                </tr>
+                <tr>
+                    <td class="row-name">Target Position:</td>
+                    <td>@(Model.Candidate.TargetPosition == null ? "No position" : Model.Candidate.TargetPosition.Name)</td>
+                </tr>
+                <tr>
+                    <td class="row-name">Skills:</td>
+                    <td>
+                        <ul class="list-group border-0">
+                            @foreach (var skill in Model.Candidate.Skills)
+                            {
+                                <li class="list-group-item m-0 p-0 border-0">
+                                    <span>@skill.Name</span>
+                                </li>
+                            }
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <a class="btn btn-primary" asp-page="./Index">Back to List</a>
+</div>

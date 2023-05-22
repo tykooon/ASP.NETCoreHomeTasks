@@ -1,0 +1,54 @@
+﻿connectionString: DataSource=company.db
+createTablesSql: drop table if exists department;
+  drop table if exists role;
+  drop table if exists user;
+  create table if not exists department (
+  Id integer primary key autoincrement,
+  Name text,
+  check(length(Name) <= 128)
+  );
+  create table if not exists role (
+  Id integer primary key autoincrement,
+  Name text,
+  check(length(Name) <= 32)
+  );
+  create table if not exists user (
+  Id char(36) primary key,
+  FullName text not null,
+  Email text not null,
+  PasswordHash text not null,
+  BirthDate date not null,
+  DepartmentId integer not null,
+  RoleId integer,
+  check(length(FullName) <= 128),
+  check(length(Email) <= 128),
+  check(length(PasswordHash) <= 128),
+  foreign key(DepartmentId) references department(Id),
+  foreign key(RoleId) references role(Id)
+  );
+  create trigger if not exists AutoGenerateGUID
+  after insert on user
+  for each row
+  when (NEW.Id is null)
+  begin
+  update user set
+  Id = (select hex( randomblob(4)) || '-' || hex( randomblob(2)) || '-' || '4' ||
+  substr( hex( randomblob(2)), 2) || '-' || substr('AB89', 1 + (abs(random()) % 4) , 1)  ||
+  substr(hex(randomblob(2)), 2) || '-' || hex(randomblob(6)) ) where rowid = NEW.rowid;
+  end;
+fillTablesSql: insert into department (Name) values ('Java');
+  insert into department (Name) values ('Front End');
+  insert into department (Name) values ('.NET');
+  insert into department (Name) values ('Administration');
+  insert into department (Name) values ('Human Resourses');
+  insert into department (Name) values ('Training Center');
+  insert into role (Name) values ('Admin');
+  insert into role (Name) values ('User');
+  insert into user (FullName, Email, PasswordHash, BirthDate, DepartmentId, RoleId) values ('Alexander Tykun', 'AlexanderTykun@coherentsolutions.com', '᧜ₜ䇨鏟⠚㐶�᧺绯飴춊띕ோ讓㎎譌㬇⩮絙ぉ寷褂敠⮅ᙫ﹫덞ۏ赸', '1977-10-13', 3, 1);
+  insert into user (FullName, Email, PasswordHash, BirthDate, DepartmentId, RoleId) values ('Alexey Volosevich', 'AlexeyVolosevich@coherentsolutions.com', '᧜ₜ䇨鏟⠚㐶�᧺绯飴춊띕ோ讓㎎譌㬇⩮絙ぉ寷褂敠⮅ᙫ﹫덞ۏ赸', '1975-06-14', 4, 2);
+  insert into user (FullName, Email, PasswordHash, BirthDate, DepartmentId, RoleId) values ('Eugen Kalabuhov', 'EugenKalabukhov@coherentsolutions.com', '᧜ₜ䇨鏟⠚㐶�᧺绯飴춊띕ோ讓㎎譌㬇⩮絙ぉ寷褂敠⮅ᙫ﹫덞ۏ赸', '1972-12-23', 6, 2);
+  insert into user (FullName, Email, PasswordHash, BirthDate, DepartmentId, RoleId) values ('Igor Kheidorov', 'IgorKheidorov@coherentsolutions.com', '᧜ₜ䇨鏟⠚㐶�᧺绯飴춊띕ோ讓㎎譌㬇⩮絙ぉ寷褂敠⮅ᙫ﹫덞ۏ赸', '1975-08-21', 1, 2);
+  insert into user (FullName, Email, PasswordHash, BirthDate, DepartmentId, RoleId) values ('Oleg Fridlyand', 'OlegFridlyand@coherentsolutions.com', '᧜ₜ䇨鏟⠚㐶�᧺绯飴춊띕ோ讓㎎譌㬇⩮絙ぉ寷褂敠⮅ᙫ﹫덞ۏ赸', '1966-04-05', 4, 2);
+  insert into user (FullName, Email, PasswordHash, BirthDate, DepartmentId, RoleId) values ('Nastya Kovbovich', 'NastyaKovbovich@coherentsolutions.com', '᧜ₜ䇨鏟⠚㐶�᧺绯飴춊띕ோ讓㎎譌㬇⩮絙ぉ寷褂敠⮅ᙫ﹫덞ۏ赸', '1995-05-07', 5, 2);
+  insert into user (FullName, Email, PasswordHash, BirthDate, DepartmentId, RoleId) values ('Alexandra Sidorovich', 'AlexandraSidorovich@coherentsolutions.com', '᧜ₜ䇨鏟⠚㐶�᧺绯飴춊띕ோ讓㎎譌㬇⩮絙ぉ寷褂敠⮅ᙫ﹫덞ۏ赸', '1986-10-23', 2, 2);
+

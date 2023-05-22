@@ -1,0 +1,44 @@
+﻿@using Company.Core.Entities;
+@model User;
+
+@{
+    ViewBag.Title = "Details for "+Model.FullName;
+}
+
+
+<div class="mainboard" style="--mw:max-content;">
+    <h2>Details for @Model.FullName</h2>
+    <div class="mb-4">
+        <table class="table table-bordered border-dark">
+            <thead>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class ="row-name">Full Name:</td>
+                    <td>@Model.FullName</td>
+                </tr>
+                <tr>
+                    <td class="row-name">Email:</td>
+                    <td>@Model.Email</td>
+                </tr>
+                <tr>
+                    <td class="row-name">Date of birth:</td>
+                    <td>@(Model.BirthDate.ToShortDateString())</td>
+                </tr>
+                <tr>
+                    <td class="row-name">Department:</td>
+                    <td>@(Model.Department.Name)</td>
+                </tr>
+                @if (Context.User.IsInRole("Admin"))
+                {
+                    <tr>
+                        <td class="row-name">Role:</td>
+                        <td>@(Model.Role == null ? "No Role" : Model.Role.Name)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <a class="btn btn-primary" href="/user">Back to List</a>
+</div>
+

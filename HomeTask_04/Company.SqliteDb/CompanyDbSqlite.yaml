@@ -1,0 +1,63 @@
+﻿connectionString: DataSource=candidates.db
+createTablesSql: drop table if exists positions;
+  drop table if exists skills;
+  drop table if exists candidates;
+  drop table if exists candidateskill;
+  create table if not exists positions (
+  Id integer primary key autoincrement,
+  Name text,
+  check(length(Name) <= 32)
+  );
+  create table if not exists skills (
+  Id integer primary key autoincrement,
+  Name text,
+  check(length(Name) <= 32)
+  );
+  create table if not exists candidates (
+  Id char(36) primary key,
+  FullName text not null,
+  Email text not null,
+  Phone text not null,
+  StartDate date not null,
+  LinkedIn text,
+  Experience integer,
+  PositionId integer,
+  check(Experience >= 0 AND Experience <= 20),
+  check(length(FullName) <= 128),
+  check(length(Email) <= 128),
+  check(length(Phone) <= 16),
+  check(length(LinkedIn) <= 1024),
+  foreign key(PositionId) references positions(Id)
+  );
+  create table if not exists candidateskill (
+  CandidateId char(36),
+  SkillId integer,
+  foreign key(CandidateId) references candidates(Id),
+  foreign key(SkillId) references skills(Id),
+  primary key(CandidateId,SkillId)
+  );
+  create trigger AutoGenerateGUID
+  after insert on candidates
+  for each row
+  when (NEW.Id is null)
+  begin
+  update candidates set
+  Id = (select hex( randomblob(4)) || '-' || hex( randomblob(2))
+  || '-' || '4' || substr( hex( randomblob(2)), 2) || '-'
+  || substr('AB89', 1 + (abs(random()) % 4) , 1)  ||
+  substr(hex(randomblob(2)), 2) || '-' || hex(randomblob(6)) ) where rowid = NEW.rowid;
+  end;
+fillTablesSql: insert into positions (Name) values ('Devops');
+  insert into positions (Name) values ('QA Manual');
+  insert into positions (Name) values ('QA Auto');
+  insert into positions (Name) values ('Developer');
+  insert into skills (Name) values ('.NET');
+  insert into skills (Name) values ('Java');
+  insert into skills (Name) values ('HTML');
+  insert into skills (Name) values ('CSS');
+  insert into skills (Name) values ('JavaScript');
+  insert into skills (Name) values ('Golang');
+  insert into skills (Name) values ('SQL');
+  insert into skills (Name) values ('ASP.NET Core');
+  insert into candidates (FullName, Email, Phone, StartDate, LinkedIn, Experience) values ('Alex Tykoun', 'alex@mail.ru', '+3752944554', date('now'),'www.link1', 2);
+  insert into candidates (FullName, Email, Phone, StartDate, LinkedIn, Experience) values ('Eugen Kalabuhov', 'eugen@mail.ru', '+3752944345', '2022-10-10','www.link2', 10);

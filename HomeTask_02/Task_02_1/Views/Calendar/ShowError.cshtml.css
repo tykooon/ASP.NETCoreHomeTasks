@@ -1,0 +1,8 @@
+﻿.error-box {
+    max-width: 420px;
+    max-height: 360px;
+    background-color:beige;
+    padding:20px;
+    border-radius:4px;
+    box-shadow:initial;
+}

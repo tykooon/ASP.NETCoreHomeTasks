@@ -1,0 +1,83 @@
+﻿@page "{id:guid}"
+@model Company.Web.Pages.Candidate.EditModel
+@{
+    ViewBag.Title = "Edit";
+}
+
+<div class="mainboard" style="--mw:800px;">
+
+    <div class="d-flex gap-2 justify-content-between m-2 p-2">
+        <h2 class="text-primary">Edit information about @Model?.Candidate?.FullName</h2>
+    </div>
+
+    <div class="mb-4">
+        <form method="post">
+            <div class="mb-3">
+                <label asp-for="Candidate.FullName" class="form-label"></label>
+                <input asp-for="Candidate.FullName" class="form-control" />
+                <span asp-validation-for="Candidate.FullName" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Candidate.Email" class="form-label"></label>
+                <input asp-for="Candidate.Email" class="form-control" />
+                <span asp-validation-for="Candidate.Email" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Candidate.Phone" class="form-label"></label>
+                <input asp-for="Candidate.Phone" class="form-control" />
+                <span asp-validation-for="Candidate.Phone" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Candidate.StartDate" class="form-label"></label>
+                <input asp-for="Candidate.StartDate" class="form-control" />
+                <span asp-validation-for="Candidate.StartDate" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Candidate.LinkedIn" class="form-label"></label>
+                <input asp-for="Candidate.LinkedIn" class="form-control" />
+                <span asp-validation-for="Candidate.LinkedIn" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Candidate.Experience" class="form-label"></label>
+                <input asp-for="Candidate.Experience" class="form-control" />
+                <span asp-validation-for="Candidate.Experience" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Candidate.PositionId" class="form-label"></label>
+                <select asp-for="Candidate.PositionId" asp-items="Model.Candidate.Positions" class="form-select">
+                    <option value="">No position</option>
+                </select>
+
+            </div>
+
+            <div class="mb-3 col-12 container ps-0">
+                <label class="form-label" for="skill-list">Skills</label>
+                <ul class="list-unstyled row" name="skill-list">
+                    @foreach (var item in Model.Candidate.Skills)
+                    {
+                        <li class="list-item col-4">
+                            <label>
+                                <input class="form-check-input me-1" type="checkbox" name="Candidate.SkillIds" value="@item.Value" checked="@Model.Candidate.HasSkill(item.Value)" />
+                                @item.Text
+                            </label>
+                        </li>
+                    }
+                </ul>
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-primary" type="submit">Save</button>
+                <a asp-page="./Index" class="btn btn-secondary">Return to list</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

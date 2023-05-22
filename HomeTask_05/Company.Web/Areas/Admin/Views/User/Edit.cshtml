@@ -1,0 +1,47 @@
+﻿@using Company.Web.Areas.Admin.Models;
+@model Company.Web.Models.UserEditModel;
+@{
+    ViewBag.Title = "Edit";
+}
+
+<div class="mainboard" style="--mw:800px;">
+
+    <div class="d-flex gap-2 justify-content-between m-2 p-2">
+        <h2 class="text-primary">Edit information about @Model?.FullName</h2>
+    </div>
+
+    <div class="mb-4">
+        <form method="post">
+
+            <partial name="_UserEditFormPartial"/>
+
+            <div class="mb-3">
+                <label asp-for="Email" class="form-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="RoleId" class="form-label"></label>
+                <select asp-for="RoleId" asp-items="Model.Roles" class="form-select">
+                    <option value="">No Role</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <a class="btn btn-warning" onclick="setPasswordModal()">Change Password</a>
+                <button class="btn btn-primary" type="submit">Save</button>
+                <a asp-action="List" class="btn btn-secondary">Return to list</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<partial name="_SetPasswordModal" model=@(new PasswordEditViewModel(){ FullName = Model.FullName, Id = Model.Id })/>
+
+@section Scripts {
+    <partial name="_ValidationScripts"/>
+    <script src="~/js/pass-togglers.js"></script>
+    <script src="~/js/password-modal.js"></script>
+
+}
